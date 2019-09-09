@@ -11,7 +11,9 @@ RUTAS = {
 
 
 def cobrar_pasaje_ruta(ruta_seleccionada, carnet_estudiantil, conexion_internet=True):
-	'''Comentario'''
+    """
+    Tabla de Estado. Parametrización general de estado para modelos.
+    """
     if conexion_internet:
         ruta = RUTAS[ruta_seleccionada]
         if(carnet_estudiantil["codigo"] in ruta["pasajeros"]):
