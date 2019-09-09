@@ -5,21 +5,31 @@ from src.cobrar_pasaje import *
 #Condiciones antes de empezar cualquier STEP
 def before_scenario(context, scenario):
 	context = {}
+	context.carnet_estudiantil={}
 
 
-@given("que se cumplen los requisitos")
-def step_impl(context):
-	pass
+@given("Un carnet estudiantil con codigo '{codigo}'")
+def step_impl(context,codigo):
+	context.carnet_estudiantil.codigo=codigo
 
-@when("se ejecute una accion")
-def step_impl(context):
-	pass
+@given("un saldo {saldo}")
+def step_impl(context,codigo,saldo,conexion):
+	context.carnet_estudiantil.saldo=saldo
 
-@then("genera el siguiete resultado '{variable}'")
-def step_impl(context, variable):
-	print(variable)
-	pass
+@given("un torniquete con conexion a internet '{conexion}'")
+def step_impl(context,codigo,saldo,conexion):
+	if conexion == 'activa':
+		context.conexion=True
+	else:
+		context.conexion=False
 
-@then("tambien ocurre lo siguiente (si es necesario)")
-def step_impl(context):
-	pass
+@when("se solicite el cobrar pasaje en la ruta '{ruta}'")
+def step_impl(context,ruta):
+	context.ruta=ruta
+	mensaje = cobrar_pasaje_ruta(context.ruta,context.carnet_estudiantil,context.conexion)
+	context.mensaje =mensaje 
+
+
+@then("se muestra el mensaje: {mensaje}")
+def step_impl(context, mensaje):
+	assert context.mensaje == mensaje
