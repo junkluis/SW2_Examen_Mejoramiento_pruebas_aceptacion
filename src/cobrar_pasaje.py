@@ -11,7 +11,7 @@ RUTAS = {
 #carnet_luis={"codigo":000000000, "saldo":20}
 
 
-def cobrar_pasaje_ruta(ruta_seleccionada, carnet_estudiantil=carnet_luis, conexion_internet=True):
+def cobrar_pasaje_ruta(ruta_seleccionada, carnet_estudiantil, conexion_internet=True):
 	if conexion_internet:
 		ruta = RUTAS[ruta_seleccionada]
 		if(carnet_estudiantil["codigo"] in ruta["pasajeros"]):
