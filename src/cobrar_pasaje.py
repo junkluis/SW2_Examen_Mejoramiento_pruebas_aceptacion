@@ -1,11 +1,10 @@
 """Funciones necesarias para busqueda de peliculas."""
-from datetime import time, timedelta, datetime
 
 RUTAS = {
-	"NORTE": {"valor": 0.30, "pasajeros":[]}, 
-	"SUR": {"valor": 0.35, "pasajeros":[]}, 
-	"CENTRO": {"valor": 0.25, "pasajeros":[]}, 
-	"DURAN": {"valor": 0.50, "pasajeros":[]}
+"NORTE": {"valor": 0.30, "pasajeros":[]}, 
+"SUR": {"valor": 0.35, "pasajeros":[]}, 
+"CENTRO": {"valor": 0.25, "pasajeros":[]}, 
+"DURAN": {"valor": 0.50, "pasajeros":[]}
 }
 
 #carnet_luis={"codigo":000000000, "saldo":20}
