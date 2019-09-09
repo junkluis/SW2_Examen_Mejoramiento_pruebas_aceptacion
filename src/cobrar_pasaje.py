@@ -2,9 +2,9 @@
 
 RUTAS = {
     "NORTE": {"valor": 0.30, "pasajeros":[]},
-	"SUR": {"valor": 0.35, "pasajeros":[]},
-	"CENTRO": {"valor": 0.25, "pasajeros":[]},
-	"DURAN": {"valor": 0.50, "pasajeros":[]}
+    "SUR": {"valor": 0.35, "pasajeros":[]},
+    "CENTRO": {"valor": 0.25, "pasajeros":[]},
+    "DURAN": {"valor": 0.50, "pasajeros":[]}
 }
 
 #carnet_luis={"codigo":000000000, "saldo":20}
@@ -17,7 +17,7 @@ def cobrar_pasaje_ruta(ruta_seleccionada, carnet_estudiantil, conexion_internet=
             mensaje_error = "Error: Este carnet aparece como duplicado"
             return (mensaje_error, carnet_estudiantil["saldo"])
         else:
-            if(carnet_estudiantil["saldo"] >= ruta["valor"]):
+            if carnet_estudiantil["saldo"] >= ruta["valor"]:
                 nuevo_saldo = round(carnet_estudiantil["saldo"] - ruta["valor"], 2)
                 carnet_estudiantil["saldo"] = nuevo_saldo
                 ruta["pasajeros"].append(carnet_estudiantil["codigo"])
