@@ -2,7 +2,7 @@ from behave import *
 from src.cobrar_pasaje import *
 
 
-#Condiciones antes de empezar cualquier STEP COMMIT DE PRUEBA
+#Condiciones antes de empezar cualquier STEP 
 def before_scenario(context, scenario):
 	context = {}
 
