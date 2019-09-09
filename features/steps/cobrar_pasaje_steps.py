@@ -1,44 +1,53 @@
-# from behave import *
-# from src.cobrar_pasaje import *
+from behave import *
+from src.cobrar_pasaje import *
 
 
-#Condiciones antes de empezar cualquier STEP 
-# def before_scenario(context, scenario):
-# 	context = {}
+#Condiciones antes de empezar cualquier STEP
+def before_scenario(context, scenario):
+	context = {}
 
 
-# @given("que se cumplen los requisitos")
-# def step_impl(context):
-# 	pass
+@given("se cumplen los requisitos")
+def step_impl(context):
+	pass
 
-# @when("se ejecute una accion")
-# def step_impl(context):
-# 	pass
+@when("ejecutar una accion")
+def step_impl(context):
+	pass
 
-# @then("genera el siguiete resultado '{variable}'")
-# def step_impl(context, variable):
-# 	print(variable)
-# 	pass
+@then("genera el siguiente resultado '{variable}'")
+def step_impl(context, variable):
+	print(variable)
+	pass
 
-# @then("tambien ocurre lo siguiente (si es necesario)")
-# def step_impl(context):
-# 	pass
+@then("tambien ocurre (si es necesario)")
+def step_impl(context):
+	pass
 
-# language: es
+@given("que tengo ${dolares} dólares en mi carnet de codigo {codigo}")
+def saldo_codigo(context, dolares, codigo):
+	carnet = {"codigo": codigo, "saldo":float(dolares)}
+	context.carnet = carnet
+	print(carnet)
 
-Característica: Cobrar pasaje
+@when("ponga mi carnet en el torniquete de la RUTA {ruta} y este {internet} tenga Internet")
+def ruta_internet(context, ruta, internet):
+	context.ruta = ruta
+	context.internet = internet == "si"
 
- @jornadasDeIngreso
-  Escenario: Nombre del escenario
-      Dado que se cumplen los requisitos
-      Cuando se ejecute una accion
-      Entonces genera el siguiete resultado 'resultado_variable'
-      Y tambien ocurre lo siguiente (si es necesario)
+@then("se descontará el pasaje según la ruta que escogí")
+def descontarPasaje(context):
+	retorno = cobrar_pasaje_ruta(context.ruta, context.carnet, context.internet)
+	assert retorno == context.carnet["saldo"]
 
-	Escenario: PRUEBA_ACEP_1
-		Dado que tengo $20 dólares en mi carnet de código 201021755
-		Cuando ponga mi carnet en el torniquete de la RUTA SUR y este tenga Internet
-		Entonces se descontará el pasaje según la ruta que escogí
-		Y se presentará el nuevo saldo: $19.65
+@then("se presentará el nuevo saldo: ${saldo}")
+def descontarPasaje(context, saldo):
+	print(context.carnet)
+	assert float(saldo) == context.carnet["saldo"]
 
-	
+@then('se mostrara el mensaje "{mensaje}"')
+def mensajeDeError(context, mensaje):
+	retorno = cobrar_pasaje_ruta(context.ruta, context.carnet, context.internet)
+	print(retorno)
+	assert retorno == mensaje
+
