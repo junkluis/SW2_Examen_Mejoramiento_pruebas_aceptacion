@@ -7,19 +7,35 @@ def before_scenario(context, scenario):
 	context = {}
 
 
-@given("que se cumplen los requisitos")
+@given("que se tiene '{saldo}' dolares asociados al carnet estudiantil con codigo '{codigo}'")
+def step_impl(context, saldo, codigo):
+	carnet = {"codigo": int(codigo), "saldo": float(saldo)}
+	context.carnet= carnet
+
+
+@given("se tiene conexión a internet")
+def step_impl(context):
+    context.conexion = True
+
+@when("se acerque el carnet al torniquete")
+def step_impl(context):
+	ruta = "NORTE"
+	result = cobrar_pasaje_ruta(ruta, context.carnet, context.conexion)
+	context.result = result
+
+@then("se descontará el costo del pasaje")
 def step_impl(context):
 	pass
 
-@when("se ejecute una accion")
-def step_impl(context):
-	pass
+@then("mostara el mensaje: '{mensaje}'")
+def step_impl(context, mensaje):
+	print(context.result)
+	assert(mensaje == context.result)
 
-@then("genera el siguiete resultado '{variable}'")
-def step_impl(context, variable):
-	print(variable)
-	pass
+@then("se mostrará el siguiente costo actualizado : '{monto}'")
+def step_impl(context, monto):
+	assert(float(monto) == context.result)
 
-@then("tambien ocurre lo siguiente (si es necesario)")
-def step_impl(context):
-	pass
+@then("se mostrará el siguiente saldo actual : '{monto}'")
+def step_impl(context, monto):
+	assert(float(monto) == context.carnet["saldo"])
