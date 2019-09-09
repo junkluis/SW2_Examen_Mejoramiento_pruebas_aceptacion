@@ -31,7 +31,7 @@ def step_impl(context, carnet_estudiantil):
 	context.carnet_estudiantil = carnet_estudiantil
 
 
-@given("que dispongo dinero asociado a mi'{conexion_internet}'")
+@given("dispone de conexion a internet'{conexion_internet}'")
 def step_impl(context, conexion_internet):
 	context.conexion_internet = conexion_internet
 
