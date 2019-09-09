@@ -1,3 +1,4 @@
+"""Modulo steps para puebas de behave"""
 from behave import *
 from src.cobrar_pasaje import *
 
@@ -37,21 +38,33 @@ def step_impl(context, conexion):
 @when("pase el carnet por el torniquete")
 def step_impl(context):
         """ realiza el cobro de saldo """
-        resultado = cobrar_pasaje_ruta(context.ruta,
+        resultado = list(cobrar_pasaje_ruta(context.ruta,
                                         context.carnet,
-                                        context.conexion)
-        context.resultado = resultado
+                                        context.conexion))
+        if len(resultado) == 1 and type(resultado[0]) == int:
+            context.saldo = resultado[0]
+        elif len(resultado) == 2:
+            context.mensaje = resultado[0]
+            context.saldo = resultado[1]
+        else:
+            context.mensaje = resultado[0]
 
 
 @then("se debita de mi saldo en base a mi ruta")
 def step_impl(context):
         """ actualiza el saldo del carnet """
-        assert(type(context.resultado) == float)
-        context.carnet['saldo'] = context.resultado
+        assert(type(context.saldo) == float)
+        context.carnet['saldo'] = context.saldo
 
 
-@then("se me muestra mi saldo restante como ${saldo_restante}")
-def step_impl(context, saldo_restante):
+@then("se me muestra mi saldo como ${saldo}")
+def step_impl(context, saldo):
         """ se muestra el resultado de la transaccion"""
-        assert(context.carnet['saldo'] == float(saldo_restante))
-        print("Su saldo es $%s" % saldo_restante)
+        assert(context.carnet['saldo'] == float(saldo))
+        print("Su saldo es $%s" % saldo)
+
+
+@then("se me muestra el mensaje {mensaje}")
+def step_impl(context, mensaje):
+        """ se muestra el resultado de la transaccion"""
+        assert(context.mensaje == mensaje)
