@@ -10,7 +10,7 @@ Característica: Cobrar pasaje
 		Entonces se descontará el pasaje según la ruta que escogí
 		Y se presentará el nuevo saldo: $19.65
 
-	Escenario: CA2
+	Escenario: PRUEBA_ACEP_2
 		Dado que tengo $0.25 dólares en mi carnet de codigo 201021755
 		Cuando ponga mi carnet en el torniquete de la RUTA SUR y este si tenga Internet
 		Entonces se mostrara el mensaje "No dispone de monto suficiente"
