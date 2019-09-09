@@ -23,3 +23,25 @@ def step_impl(context, variable):
 @then("tambien ocurre lo siguiente (si es necesario)")
 def step_impl(context):
 	pass
+
+@given("que dispongo de ${dolares} dólares en mi carnet de código {codigo}")
+def saldo_codigo(context, dolares, codigo):
+	carnet = {"codigo": codigo, "saldo":float(dolares)}
+	context.carnet = carnet
+	print(carnet)
+
+@when("acerque mi carnet al torniquete de la ruta {ruta} y este {internet} tenga Internet")
+def ruta_internet(context, ruta, internet):
+	context.ruta = ruta
+	context.internet = internet == "sí"
+
+@then("se descontará el pasaje según la ruta que escogí")
+def descontarPasaje(context):
+	cobrar_pasaje_ruta(context.ruta, context.carnet, context.internet)
+
+@then("se presentará el nuevo saldo: ${saldo_nuevo}")
+def descontarPasaje(context, saldo_nuevo):
+	print(context.carnet)
+	assert float(saldo_nuevo) == context.carnet["saldo"]
+
+
