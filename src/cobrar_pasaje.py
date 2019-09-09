@@ -16,7 +16,7 @@ def cobrar_pasaje_ruta(ruta_seleccionada, carnet_estudiantil, conexion_internet=
     """
     if conexion_internet:
         ruta = RUTAS[ruta_seleccionada]
-        if(carnet_estudiantil["codigo"] in ruta["pasajeros"]):
+        if carnet_estudiantil["codigo"] in ruta["pasajeros"]:
             mensaje_error = "Error: Este carnet aparece como duplicado"
             return (mensaje_error, carnet_estudiantil["saldo"])
         else:
