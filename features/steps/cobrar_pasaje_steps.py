@@ -6,8 +6,8 @@ from src.cobrar_pasaje import *
 def before_scenario(context, scenario):
 	context = {}
 
-@given("soy estudiante de ESPOL con carnet en la ruta {ruta_viaje}"):
-def step_impl(context, carnet):
+@given("soy estudiante de ESPOL con carnet en la ruta {ruta_viaje}")
+def step_impl(context, ruta_viaje):
 	context.carnet_estudiantil = {"codigo":000000000, "saldo":20}
 	context.ruta_viaje = ruta_viaje
 
@@ -26,7 +26,7 @@ def step_impl(context):
 @then("se me escontará '{variable}'")
 def step_impl(context, variable):
 	print(variable)
-	context.total_saldo = context.total_saldo - variable
+	context.carnet_estudiantil["saldo"] = context.carnet_estudiantil["saldo"] - float(variable)
 
 @then("me presentará el mensaje: {mensaje_error}")
 def step_impl(context, mensaje):
