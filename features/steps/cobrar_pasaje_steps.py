@@ -37,11 +37,17 @@ def ruta_internet(context, ruta, internet):
 
 @then("se descontará el pasaje según la ruta que escogí")
 def descontarPasaje(context):
-	cobrar_pasaje_ruta(context.ruta, context.carnet, context.internet)
+	retorno = cobrar_pasaje_ruta(context.ruta, context.carnet, context.internet)
+	assert retorno == context.carnet["saldo"]
 
-@then("se presentará el nuevo saldo: ${saldo_nuevo}")
-def descontarPasaje(context, saldo_nuevo):
+@then("se presentará el saldo: ${saldo}")
+def descontarPasaje(context, saldo):
 	print(context.carnet)
-	assert float(saldo_nuevo) == context.carnet["saldo"]
+	assert float(saldo) == context.carnet["saldo"]
 
+@then('se me presentará el mensaje "{mensaje}"')
+def mensajeDeError(context, mensaje):
+	retorno = cobrar_pasaje_ruta(context.ruta, context.carnet, context.internet)
+	print(retorno)
+	assert retorno == mensaje
 
